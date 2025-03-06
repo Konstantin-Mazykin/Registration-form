@@ -10,7 +10,8 @@ const confirmCheckbox = formRegistration.confirmCheckbox;
 
 const countryField = formRegistration.country;
 const countryFields = formRegistration.querySelectorAll('.form-select-item');
-const countryFieldsDefault = formRegistration.querySelector('.form-select-title').textContent;
+const countryTitle = formRegistration.querySelector('.form-select-title');
+const countryFieldsDefault = countryTitle.textContent;
 
 const genderFields = formRegistration.querySelector('.radiobuttons-wrapper');
 let genderValue;
@@ -20,6 +21,12 @@ const warningMessedges = formRegistration.querySelectorAll('.form-field-warning'
 const buttonAllClear = formRegistration.querySelector('.button-clear');
 const viewPassword = formRegistration.querySelector('.view-password');
 
+const avatarInput = formRegistration.querySelector('.form-input-avatar');
+const viewImage = formRegistration.querySelector('.form-user-avatar');
+const defaultAvatar = viewImage.src;
+
+avatarInput.addEventListener('change', saveAvatar);
+
 inputFields.forEach((listItem) => {
     listItem.addEventListener("change", function () {
         checkingFilling(this.value, this)
@@ -27,33 +34,48 @@ inputFields.forEach((listItem) => {
 });
 
 firstnameField.addEventListener("change", function () {
+    localStorage.setItem('firstname', this.value);
     let validation = validateNameAndLastName(this.value);
     validationIndication(validation, this)
 })
 
 lastnameField.addEventListener("change", function () {
+    localStorage.setItem('lastname', this.value);
     let validation = validateNameAndLastName(this.value);
     validationIndication(validation, this)
 })
 
 ageField.addEventListener("change", function () {
+    localStorage.setItem('age', this.value);
     let validation = validateAge(this.value);
-    validationIndication(validation, this)
+    indicationWarnings(validation, this)
 })
 
 genderFields.addEventListener("click", function () {
     genderValue = formRegistration.querySelector('input[name="gender"]:checked')?.value;
-    checkGender(genderValue);
+    localStorage.setItem('gender', genderValue);
+    // checkGender(genderValue);
 })
 
-countryFields.forEach(element => {
-    element.addEventListener("click", function () {
-        formRegistration.querySelector('.form-select-title')?.classList.remove("incorrect");
-        countryField.parentNode.querySelector('.form-field-warning')?.classList.remove('warning');
+countryTitle.addEventListener("click", function () {
+    // if (countryField.value === "") {
+    //     formRegistration.querySelector('.form-select-title')?.classList.add("incorrect")
+    // } else {
+    //     formRegistration.querySelector('.form-select-title')?.classList.remove("incorrect");
+    // }
+
+    countryFields.forEach(element => {
+        console.log(element);
+        element.addEventListener("click", function () {
+            localStorage.setItem('country', countryField.value);
+            // formRegistration.querySelector('.form-select-title')?.classList.remove("incorrect");
+            // countryField.parentNode.querySelector('.form-field-warning')?.classList.remove('warning');
+        })
     })
 })
 
 emailField.addEventListener("change", function () {
+    localStorage.setItem('email', this.value);
     let validation = validateEmail(this.value);
     validationIndication(validation, this);
 })
@@ -70,22 +92,14 @@ confirmPasswordField.addEventListener("change", function () {
 
 confirmCheckbox.addEventListener('click', checkConfirm)
 
-viewPassword.addEventListener('click', function () {
-    if (passwordField.type === "password") {
-        passwordField.type = "text";
-        confirmPasswordField.type = "text";
-    } else {
-        passwordField.type = "password";
-        confirmPasswordField.type = "password";
-    }
-})
+viewPassword.addEventListener('click', showHidePassword)
 
 buttonAllClear.addEventListener("click", allClear);
 
 formRegistration.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    let emptyInputs = Array.from(inputFields).filter(input => input.value === '');
+    let emptyInputs = Array.from(inputFields).filter(input => input.classList.contains('mandatory') && input.value === '');
 
     emptyInputs.forEach(input => {
         if (input.value === '') {
@@ -95,18 +109,10 @@ formRegistration.addEventListener('submit', (event) => {
         }
     })
 
-    if (countryField.value === "") {
-        formRegistration.querySelector('.form-select-title')?.classList.add("incorrect")
-    } else {
-        formRegistration.querySelector('.form-select-title')?.classList.remove("incorrect")
-    }
-
-    genderValue = formRegistration.querySelector('input[name="gender"]:checked')?.value;
-    checkGender(genderValue);
     checkConfirm();
 
     // confirm validation
-    if (!emptyInputs.length && genderValue && confirmCheckbox.checked) {
+    if (!emptyInputs.length && confirmCheckbox.checked) {
         modal.classList.add('is-hidden');
         formRegistration.submit();
     }
@@ -124,7 +130,7 @@ function allClear() {
 
     warningMessedges.forEach((listItem) => {
         listItem.classList.remove("warning");
-        listItem.parentNode.style.marginBottom = "30px";
+        listItem.parentNode.style.marginBottom = "28px";
     });
 
     formRegistration.querySelector('.form-select-title')?.classList.remove("incorrect");
@@ -133,21 +139,30 @@ function allClear() {
     menuTitle.innerText = countryFieldsDefault;
     passwordField.type = "password";
     confirmPasswordField.type = "password";
+    viewImage.src = defaultAvatar;
 }
 
 function addWarning(element) {
-    element.classList.add("incorrect");
     element.parentNode.querySelector('.form-field-warning')?.classList.add('warning');
-    element.parentNode.style.marginBottom = "24px";
+    element.parentNode.style.marginBottom = "22px";
 }
 
 function removeWarning(element) {
-    element.classList.remove("incorrect");
     element.parentNode.querySelector('.form-field-warning')?.classList.remove('warning');
-    element.parentNode.style.marginBottom = "30px";
+    element.parentNode.style.marginBottom = "28px";
 }
 
 function validationIndication(condition, element) {
+    if (!condition) {
+        element.classList.add("incorrect");
+        addWarning(element);
+    } else {
+        element.classList.remove("incorrect");
+        removeWarning(element);
+    }
+}
+
+function indicationWarnings(condition, element) {
     if (!condition) {
         addWarning(element);
     } else {
@@ -174,16 +189,16 @@ function validatePassword(string) {
     return reg.test(String(string));
 }
 
-function checkGender(gender) {
-    if (!gender) {
-        formRegistration.querySelector('.form-radiobutton').style.color = "var(--color-warning)";
-    } else {
-        formRegistration.querySelector('.form-radiobutton').style.color = "";
-    }
-}
+// function checkGender(gender) {
+//     if (!gender) {
+//         formRegistration.querySelector('.form-radiobutton').style.color = "var(--color-warning)";
+//     } else {
+//         formRegistration.querySelector('.form-radiobutton').style.color = "";
+//     }
+// }
 
 function validateAge(age) {
-    if (age > 0 && age < 150) {
+    if (age > 18 && age < 99) {
         return true;
     } else {
         return false;
@@ -204,5 +219,24 @@ function checkingFilling(value, element) {
         label.classList.add("filled");
     } else {
         label.classList.remove("filled");
+    }
+}
+
+function saveAvatar() {
+    let f = this.files[0];
+    if (f) {
+        viewImage.src = URL.createObjectURL(f);
+        localStorage.setItem('avatar', viewImage.src);
+    }
+    viewImage.src = localStorage.getItem('avatar')
+}
+
+function showHidePassword() {
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        confirmPasswordField.type = "text";
+    } else {
+        passwordField.type = "password";
+        confirmPasswordField.type = "password";
     }
 }

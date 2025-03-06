@@ -87,27 +87,39 @@
 
     <div class="backdrop is-hidden">
         <div class="modal">
-            <h2 class="modal-title">Форма реєстрації</h2>
             <button class="modal-btn-close" type="button">&#x2573;</button>
             <form id="user-form" class="contact-form" name="regform" autocomplete="off" novalidate>
-                <div class="form-field">
-                    <label class="field-label" for="user-firstname">Імʼя</label>
-                    <input class="field-input" type="text" name="firstname" id="user-firstname">
-                    <span class="form-field-warning">Введено некоректне ім'я (ім'я може містити лише літери та пробіли,
-                        і
-                        бути не менше ніж 2 символи)</span>
-                </div>
-                <div class="form-field">
-                    <label class="field-label" for="user-lastname">Прізвище</label>
-                    <input class="field-input" type="text" name="lastname" id="user-lastname">
-                    <span class="form-field-warning">Введено некоректне прізвище (прізвище може містити лише літери,
-                        пробіли
-                        та дефиси, і бути не менше ніж 2 символи)</span>
-                </div>
-                <div class="form-field">
-                    <label class="field-label" for="user-age">Вік (потрібно ввести лише цифри)</label>
-                    <input class="field-input" type="number" name="age" id="user-age">
-                    <span class="form-field-warning">Введено некоректний вік</span>
+                <div class="form-user-with-avatar">
+                    <div class="form-user-data">
+                        <div class="form-field">
+                            <label class="field-label" for="user-firstname">Імʼя <span class="remark">*</span></label>
+                            <input class="field-input mandatory" type="text" name="firstname" id="user-firstname">
+                            <span class="form-field-warning">Введено некоректне ім'я (ім'я може містити лише літери та
+                                пробіли, і бути не менше ніж 2 символи)</span>
+                        </div>
+                        <div class="form-field">
+                            <label class="field-label" for="user-lastname">Прізвище <span
+                                    class="remark">*</span></label>
+                            <input class="field-input mandatory" type="text" name="lastname" id="user-lastname">
+                            <span class="form-field-warning">Введено некоректне прізвище (прізвище може містити лише
+                                літери, пробіли та дефиси, і бути не менше ніж 2 символи)</span>
+                        </div>
+
+                        <div class="form-field last-field">
+                            <label class="field-label" for="user-age">Вік (потрібно ввести лише цифри)</label>
+                            <input class="field-input" type="number" name="age" id="user-age">
+                            <span class="form-field-warning">Вік має бути не менше 18 і не більше 99 років</span>
+                        </div>
+
+                        <div class="form-input-file">
+                            <input class="form-input-avatar" type="file" id="input-avatar" name="avatar">
+                            <label for="input-avatar" class="form-input-file-button">
+                                <span class="form-input-file-button-text">Завантажте файл із зображенням</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <img class="form-user-avatar" src="./img/avatar-user.png" id="form-avatar" alt="Аватар користувача">
                 </div>
 
                 <div class="form-radiobutton">
@@ -134,14 +146,14 @@
                 </div>
 
                 <div class="form-field">
-                    <label class="field-label" for="user-email">Електронна пошта</label>
-                    <input class="field-input" type="email" name="email" id="user-email">
+                    <label class="field-label" for="user-email">Електронна пошта <span class="remark">*</span></label>
+                    <input class="field-input mandatory" type="email" name="email" id="user-email">
                     <span class="form-field-warning">Введено некоректну електронну пошту</span>
                 </div>
 
                 <div class="form-field">
-                    <label class="field-label" for="user-password">Введіть пароль</label>
-                    <input class="field-input" type="password" name="password" id="user-password">
+                    <label class="field-label" for="user-password">Введіть пароль <span class="remark">*</span></label>
+                    <input class="field-input mandatory" type="password" name="password" id="user-password">
                     <div class="view-password">
                         <svg class="icon-view">
                             <use href="./img/icons.svg#icon-eye-blocked"></use>
@@ -153,14 +165,18 @@
                 </div>
 
                 <div class="form-field">
-                    <label class="field-label" for="user-confirm-password">Підтвердження пароля</label>
-                    <input class="field-input" type="password" name="passwordConfirmation" id="user-confirm-password">
+                    <label class="field-label" for="user-confirm-password">Підтвердження пароля <span
+                            class="remark">*</span></label>
+                    <input class="field-input mandatory" type="password" name="passwordConfirmation"
+                        id="user-confirm-password">
                     <span class="form-field-warning">Паролі не збігаються</span>
                 </div>
                 <div class="form-checkbox">
                     <input class="form-checkbox-input" type="checkbox" id="form-checkbox" name="confirmCheckbox">
                     <label class="form-checkbox-label" for="form-checkbox">Погоджуюсь з умовами</label>
                 </div>
+
+                <p class="form-comment"><span class="remark">*</span> поля, обов'язкові до заповнення</p>
 
                 <div class="form-buttons">
                     <button class="button button-submit" type="submit">Відправити</button>
@@ -173,6 +189,7 @@
     <script src="./js/view.js"></script>
     <script src="./js/validation.js"></script>
     <script src="./js/select.js"></script>
+    <!-- <script src="./js/avatar.js"></script> -->
 </body>
 
 </html>
