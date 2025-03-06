@@ -14,7 +14,6 @@ const countryTitle = formRegistration.querySelector('.form-select-title');
 const countryFieldsDefault = countryTitle.textContent;
 
 const genderFields = formRegistration.querySelector('.radiobuttons-wrapper');
-let genderValue;
 
 const inputFields = formRegistration.querySelectorAll('.field-input');
 const warningMessedges = formRegistration.querySelectorAll('.form-field-warning');
@@ -52,24 +51,14 @@ ageField.addEventListener("change", function () {
 })
 
 genderFields.addEventListener("click", function () {
-    genderValue = formRegistration.querySelector('input[name="gender"]:checked')?.value;
+    let genderValue = formRegistration.querySelector('input[name="gender"]:checked')?.value;
     localStorage.setItem('gender', genderValue);
-    // checkGender(genderValue);
 })
 
 countryTitle.addEventListener("click", function () {
-    // if (countryField.value === "") {
-    //     formRegistration.querySelector('.form-select-title')?.classList.add("incorrect")
-    // } else {
-    //     formRegistration.querySelector('.form-select-title')?.classList.remove("incorrect");
-    // }
-
     countryFields.forEach(element => {
-        console.log(element);
         element.addEventListener("click", function () {
             localStorage.setItem('country', countryField.value);
-            // formRegistration.querySelector('.form-select-title')?.classList.remove("incorrect");
-            // countryField.parentNode.querySelector('.form-field-warning')?.classList.remove('warning');
         })
     })
 })
@@ -100,19 +89,14 @@ formRegistration.addEventListener('submit', (event) => {
     event.preventDefault();
 
     let emptyInputs = Array.from(inputFields).filter(input => input.classList.contains('mandatory') && input.value === '');
+    initialVerification(emptyInputs)
 
-    emptyInputs.forEach(input => {
-        if (input.value === '') {
-            input.classList.add("incorrect");
-        } else {
-            input.classList.remove("incorrect");
-        }
-    })
+    let incorrectInputs = Array.from(inputFields).filter(input => input.classList.contains('incorrect'));
 
     checkConfirm();
 
     // confirm validation
-    if (!emptyInputs.length && confirmCheckbox.checked) {
+    if (!incorrectInputs.length && confirmCheckbox.checked) {
         modal.classList.add('is-hidden');
         formRegistration.submit();
     }
@@ -152,6 +136,16 @@ function removeWarning(element) {
     element.parentNode.style.marginBottom = "28px";
 }
 
+function initialVerification(elements) {
+    elements.forEach(input => {
+        if (input.value === '') {
+            input.classList.add("incorrect");
+        } else {
+            input.classList.remove("incorrect");
+        }
+    })
+}
+
 function validationIndication(condition, element) {
     if (!condition) {
         element.classList.add("incorrect");
@@ -188,14 +182,6 @@ function validatePassword(string) {
     let reg = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
     return reg.test(String(string));
 }
-
-// function checkGender(gender) {
-//     if (!gender) {
-//         formRegistration.querySelector('.form-radiobutton').style.color = "var(--color-warning)";
-//     } else {
-//         formRegistration.querySelector('.form-radiobutton').style.color = "";
-//     }
-// }
 
 function validateAge(age) {
     if (age > 18 && age < 99) {
