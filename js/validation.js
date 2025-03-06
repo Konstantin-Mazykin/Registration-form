@@ -5,6 +5,7 @@ const ageField = formRegistration.age;
 const emailField = formRegistration.email;
 const passwordField = formRegistration.password;
 const confirmPasswordField = formRegistration.passwordConfirmation;
+const commentField = formRegistration.comment;
 
 const confirmCheckbox = formRegistration.confirmCheckbox;
 
@@ -28,26 +29,26 @@ avatarInput.addEventListener('change', saveAvatar);
 
 inputFields.forEach((listItem) => {
     listItem.addEventListener("change", function () {
-        checkingFilling(this.value, this)
+        checkingFilling(this.value, this);
     });
 });
 
 firstnameField.addEventListener("change", function () {
     localStorage.setItem('firstname', this.value);
     let validation = validateNameAndLastName(this.value);
-    validationIndication(validation, this)
+    validationIndication(validation, this);
 })
 
 lastnameField.addEventListener("change", function () {
     localStorage.setItem('lastname', this.value);
     let validation = validateNameAndLastName(this.value);
-    validationIndication(validation, this)
+    validationIndication(validation, this);
 })
 
 ageField.addEventListener("change", function () {
     localStorage.setItem('age', this.value);
     let validation = validateAge(this.value);
-    indicationWarnings(validation, this)
+    indicationWarnings(validation, this);
 })
 
 genderFields.addEventListener("click", function () {
@@ -71,17 +72,21 @@ emailField.addEventListener("change", function () {
 
 passwordField.addEventListener("change", function () {
     let validation = validatePassword(this.value);
-    validationIndication(validation, this)
+    validationIndication(validation, this);
 })
 
 confirmPasswordField.addEventListener("change", function () {
     let validation = passwordField.value === confirmPasswordField.value;
-    validationIndication(validation, this)
+    validationIndication(validation, this);
 })
 
-confirmCheckbox.addEventListener('click', checkConfirm)
+commentField.addEventListener("change", function () {
+    localStorage.setItem('comment', this.value);
+})
 
-viewPassword.addEventListener('click', showHidePassword)
+confirmCheckbox.addEventListener('click', checkConfirm);
+
+viewPassword.addEventListener('click', showHidePassword);
 
 buttonAllClear.addEventListener("click", allClear);
 
