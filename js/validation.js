@@ -13,7 +13,6 @@ const countryField = formRegistration.country;
 const countryFields = formRegistration.querySelectorAll('.form-select-item');
 const countryTitle = formRegistration.querySelector('.form-select-title');
 const countryFieldsDefault = countryTitle.textContent;
-console.log(countryFieldsDefault)
 
 const genderFields = formRegistration.querySelector('.radiobuttons-wrapper');
 
