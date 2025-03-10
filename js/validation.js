@@ -113,6 +113,7 @@ function allClear() {
     inputFields.forEach((listItem) => {
         if (!listItem.classList.contains('form-select-input')) {
             listItem.parentNode.querySelector('.field-label')?.classList.remove('filled');
+            listItem.parentNode.querySelector('.form-field-warning')?.setAttribute("aria-hidden", "true");
         }
         listItem.classList.remove("incorrect");
     });
@@ -133,12 +134,15 @@ function allClear() {
 
 function addWarning(element) {
     element.parentNode.querySelector('.form-field-warning')?.classList.add('warning');
+    element.parentNode.querySelector('.form-field-warning')?.setAttribute("aria-hidden", "false");
     element.parentNode.style.marginBottom = "22px";
 }
 
 function removeWarning(element) {
     element.parentNode.querySelector('.form-field-warning')?.classList.remove('warning');
+    element.parentNode.querySelector('.form-field-warning')?.setAttribute("aria-hidden", "true");
     element.parentNode.style.marginBottom = "28px";
+
 }
 
 function initialVerification(elements) {

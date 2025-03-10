@@ -10,6 +10,17 @@ function openCloseMenu() {
     chooseElement = -1;
     menuList.classList.toggle("open-menu");
     menuTitle.classList.toggle("title-pressed");
+    setAriaHeaderAttributes();
+}
+
+function setAriaHeaderAttributes() {
+    if (menuTitle.classList.contains("title-pressed")) {
+        menuTitle.setAttribute("aria-expanded", "true");
+        menuList.setAttribute("aria-hidden", "false");
+    } else {
+        menuTitle.setAttribute("aria-expanded", "false");
+        menuList.setAttribute("aria-hidden", "true");
+    }
 }
 
 function processingSelectedItem(event) {
@@ -27,17 +38,20 @@ function gettingValue(item) {
 function markItem(item) {
     clearItemSelection();
     item.classList.add("selected-item");
+    item.setAttribute("aria-checked", "true");
 }
 
 function clearItemSelection() {
     listItems.forEach((item) => {
         item.classList.remove("selected-item");
+        item.setAttribute("aria-checked", "false");
     });
 }
 
 function closeDropdawnMenu() {
     menuList.classList.remove("open-menu");
     menuTitle.classList.remove("title-pressed", "selected-item");
+    setAriaHeaderAttributes();
 }
 
 function clickOutsideDropdawn(event) {

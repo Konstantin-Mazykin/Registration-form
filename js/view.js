@@ -6,6 +6,7 @@ function render(array, htmlElement) {
         element.classList.add("form-select-item");
 
         element.setAttribute("tabindex", '0');
+        element.setAttribute("aria-checked", 'false');
         element.setAttribute("data-value", `${array[i]}`);
         element.insertAdjacentHTML("beforeend", `${array[i]}`);
 

@@ -12,9 +12,10 @@
 
     <div class="container">
         <div class="button-wrapper">
-            <button class="button modal-btn-open" type="button">Зареєструватись</button>
+            <button class="button modal-btn-open" role="button" type="button">Зареєструватись</button>
         </div>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, veniam. Harum corporis illo commodi officia
+        <p role="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, veniam. Harum corporis illo
+            commodi officia
             fugit minima numquam fuga voluptas delectus recusandae itaque, veniam eligendi minus rem porro eos ea!
             Praesentium aspernatur, aperiam molestiae odio vel, sit magnam iste, officia dolorem possimus fugiat quod
             est non ullam esse maiores assumenda ipsum voluptatibus maxime. Commodi earum fugiat voluptatibus quod eaque
@@ -87,34 +88,43 @@
 
     <div class="backdrop is-hidden">
         <div class="modal">
-            <button class="modal-btn-close" type="button">&#x2573;</button>
-            <form id="user-form" class="contact-form" name="regform" autocomplete="off" novalidate>
+            <button class="modal-btn-close" type="button" role="button">&#x2573;</button>
+            <form id="user-form" role="form" class="contact-form" name="regform" autocomplete="off" novalidate>
                 <div class="form-user-with-avatar">
                     <div class="form-user-data">
                         <div class="form-field">
                             <label class="field-label" for="user-firstname">Імʼя <span class="remark">*</span></label>
-                            <input class="field-input mandatory" type="text" name="firstname" id="user-firstname">
-                            <span class="form-field-warning">Введено некоректне ім'я (ім'я може містити лише літери та
+                            <input class="field-input mandatory" role="textbox" type="text" name="firstname"
+                                id="user-firstname">
+                            <span class="form-field-warning" role="generic" aria-hidden="true">Введено некоректне ім'я
+                                (ім'я може містити
+                                лише літери та
                                 пробіли, і бути не менше ніж 2 символи)</span>
                         </div>
                         <div class="form-field">
                             <label class="field-label" for="user-lastname">Прізвище <span
                                     class="remark">*</span></label>
-                            <input class="field-input mandatory" type="text" name="lastname" id="user-lastname">
-                            <span class="form-field-warning">Введено некоректне прізвище (прізвище може містити лише
+                            <input class="field-input mandatory" role="textbox" type="text" name="lastname"
+                                id="user-lastname">
+                            <span class="form-field-warning" role="generic" aria-hidden="true">Введено некоректне
+                                прізвище (прізвище може
+                                містити лише
                                 літери, пробіли та дефиси, і бути не менше ніж 2 символи)</span>
                         </div>
 
                         <div class="form-field last-field">
                             <label class="field-label" for="user-age">Вік (потрібно ввести лише цифри)</label>
-                            <input class="field-input" type="number" name="age" id="user-age">
-                            <span class="form-field-warning">Вік має бути не менше 18 і не більше 99 років</span>
+                            <input class="field-input" role="spinbutton" type="number" name="age" id="user-age">
+                            <span class="form-field-warning" role="generic" aria-hidden="true">Вік має бути не менше 18
+                                і не більше 99
+                                років</span>
                         </div>
 
                         <div class="form-input-file">
                             <input class="form-input-avatar" type="file" id="input-avatar" name="avatar">
                             <label for="input-avatar" class="form-input-file-button">
-                                <span class="form-input-file-button-text">Завантажте файл із зображенням</span>
+                                <span class="form-input-file-button-text" role="generic">Завантажте файл із
+                                    зображенням</span>
                             </label>
                         </div>
                     </div>
@@ -126,40 +136,49 @@
                     <p>Вкажіть свою стать:</p>
                     <div class="radiobuttons-wrapper">
                         <div class="form-radiobuttons-wrapper">
-                            <input class="form-radio-input" id="male" type="radio" name="gender" value="male">
+                            <input class="form-radio-input" role="radio" id="male" type="radio" name="gender"
+                                value="male">
                             <label class="form-radio-label" for="male">Чоловіча</label>
                         </div>
                         <div class="form-radiobuttons-wrapper">
-                            <input class="form-radio-input" id="female" type="radio" name="gender" value="female">
+                            <input class="form-radio-input" role="radio" id="female" type="radio" name="gender"
+                                value="female">
                             <label class="form-radio-label" for="female">Жіноча</label>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-select">
+                <div class="form-select" role="combobox">
                     <div class="form-select-wrapper">
-                        <button class="form-select-title" type="button">Країна проживання:</button>
-                        <ul class="form-select-list"> </ul>
+                        <button class="form-select-title" type="button" aria-label="select-menu"
+                            aria-labelledby='select-menu' aria-expanded="false" aria-controls="select-menu">Країна
+                            проживання:</button>
+                        <ul class="form-select-list" id="select-menu" aria-labelledby='select-menu' aria-hidden="true">
+                        </ul>
                     </div>
                     <input class="field-input form-select-input" type="text" name="country" value="">
-                    <span class="form-field-warning">Виберіть країну проживання</span>
+                    <span class="form-field-warning" role="generic" aria-hidden="true">Виберіть країну проживання</span>
                 </div>
 
                 <div class="form-field">
                     <label class="field-label" for="user-email">Електронна пошта <span class="remark">*</span></label>
-                    <input class="field-input mandatory" type="email" name="email" id="user-email">
-                    <span class="form-field-warning">Введено некоректну електронну пошту</span>
+                    <input class="field-input mandatory" role="textbox" type="email" name="email" id="user-email">
+                    <span class="form-field-warning" role="generic" aria-hidden="true">Введено некоректну електронну
+                        пошту</span>
                 </div>
 
                 <div class="form-field">
                     <label class="field-label" for="user-password">Введіть пароль <span class="remark">*</span></label>
-                    <input class="field-input mandatory" type="password" name="password" id="user-password">
+                    <input class="field-input mandatory" role="textbox" type="password" name="password"
+                        id="user-password">
                     <div class="view-password">
                         <svg class="icon-view">
                             <use href="./img/icons.svg#icon-eye-blocked"></use>
                         </svg>
                     </div>
-                    <span class="form-field-warning">Пароль повинен містити малі та великі латинські літери, службові
+                    <span class="form-field-warning" role="generic" aria-hidden="true">Пароль повинен містити малі та
+                        великі латинські
+                        літери, службові
                         символи та цифри.
                         Мінімальна довжина пароля 8 символів</span>
                 </div>
@@ -167,9 +186,9 @@
                 <div class="form-field">
                     <label class="field-label" for="user-confirm-password">Підтвердження пароля <span
                             class="remark">*</span></label>
-                    <input class="field-input mandatory" type="password" name="passwordConfirmation"
+                    <input class="field-input mandatory" role="textbox" type="password" name="passwordConfirmation"
                         id="user-confirm-password">
-                    <span class="form-field-warning">Паролі не збігаються</span>
+                    <span class="form-field-warning" role="generic" aria-hidden="true">Паролі не збігаються</span>
                 </div>
 
                 <div class="form-field">
@@ -177,8 +196,9 @@
                     <textarea class="field-input comment" name="comment"></textarea>
                 </div>
 
-                <div class="form-checkbox">
-                    <input class="form-checkbox-input" type="checkbox" id="form-checkbox" name="confirmCheckbox">
+                <div class="form-checkbox" role=button>
+                    <input class="form-checkbox-input" role="checkbox" type="checkbox" id="form-checkbox"
+                        name="confirmCheckbox">
                     <label class="form-checkbox-label" for="form-checkbox">Погоджуюсь з умовами <span
                             class="remark">*</span></label>
                 </div>
@@ -186,8 +206,8 @@
                 <p class="form-comment"><span class="remark">*</span> поля, обов'язкові до заповнення</p>
 
                 <div class="form-buttons">
-                    <button class="button button-submit" type="submit">Відправити</button>
-                    <button class="button button-clear" type="reset">Очистити форму</button>
+                    <button class="button button-submit" role="button" type="submit">Відправити</button>
+                    <button class="button button-clear" role="button" type="reset">Очистити форму</button>
                 </div>
             </form>
         </div>
