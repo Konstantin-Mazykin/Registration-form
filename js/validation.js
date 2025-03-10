@@ -218,9 +218,9 @@ function checkingFilling(value, element) {
 }
 
 function saveAvatar() {
-    let f = this.files[0];
-    if (f) {
-        viewImage.src = URL.createObjectURL(f);
+    let file = this.files[0];
+    if (file) {
+        viewImage.src = URL.createObjectURL(file);
         localStorage.setItem('avatar', viewImage.src);
     }
     viewImage.src = localStorage.getItem('avatar')
